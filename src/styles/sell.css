@@ -1,0 +1,27 @@
+.tableData td {
+  padding: 8px !important;
+}
+.tableData td input {
+  padding: 2px 8px;
+  font-size: larger;
+}
+.tableData td .ant-input-group-addon:active {
+  background-color: rgb(40, 199, 235);
+}
+.tableData td .ant-input-group-addon:active .actionButton {
+  scale: 1.8;
+}
+.tableData td .ant-input-group-addon:hover {
+  background-color: rgb(40, 199, 235);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+.main .search {
+  margin: 8px 0;
+}
+.main .ant-select {
+  width: 100%;
+}/*# sourceMappingURL=sell.css.map */
