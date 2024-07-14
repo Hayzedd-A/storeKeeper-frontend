@@ -1,3 +1,4 @@
+@charset "UTF-8";
 nav {
   height: 4em;
   grid-column: span 2;
@@ -56,4 +57,46 @@ nav li a {
 .ant-spin {
   scale: 3;
   z-index: 6;
+}
+
+.sell-page .tableData td {
+  padding: 8px !important;
+}
+.sell-page .tableData td input {
+  padding: 2px 8px;
+  font-size: larger;
+}
+.sell-page .tableData td .ant-input-group-addon:active {
+  background-color: rgb(40, 199, 235);
+}
+.sell-page .tableData td .ant-input-group-addon:active .actionButton {
+  scale: 1.8;
+}
+.sell-page .tableData td .ant-input-group-addon:hover {
+  background-color: rgb(40, 199, 235);
+}
+.sell-page .main {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+.sell-page .main .search {
+  margin: 8px 0;
+}
+.sell-page .main .ant-select {
+  width: 100%;
+}
+.sell-page .main .cart .cartTable tr.ant-table-row td.ant-table-cell:nth-child(2)::before, .sell-page .main .cart .cartTable tr.ant-table-row td.ant-table-cell:nth-child(4)::before {
+  content: "₦";
+}
+
+.allProducts .header {
+  padding: 0.5em;
+  display: flex;
+  gap: 2em;
+}
+.allProducts .header .search {
+  flex: 1;
+}
+.allProducts .header .search .ant-select {
+  width: 100%;
 }/*# sourceMappingURL=styles.css.map */

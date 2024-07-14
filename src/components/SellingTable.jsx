@@ -1,7 +1,13 @@
 import { Table, Input, Button } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
-const SellingTable = ({ data, setData }) => {
+const SellingTable = ({ setCartData, data, setData }) => {
+  const addToCart = item => {
+    item.amount = item.purchaseValue * item.price;
+    setCartData(prev => {
+      return [...prev, item];
+    });
+  };
   const columns = [
     {
       title: "Image",
@@ -13,10 +19,6 @@ const SellingTable = ({ data, setData }) => {
       title: "Name",
       dataIndex: "name",
       key: "id",
-      sorter: {
-        compare: (a, b) => a.name - b.name,
-        multiple: 1,
-      },
     },
     {
       title: "price",
@@ -106,9 +108,9 @@ const SellingTable = ({ data, setData }) => {
     {
       title: "action",
       key: "id",
-      render: data => {
+      render: item => {
         return (
-          <Button onClick={e => console.log(data)} type="primary">
+          <Button onClick={() => addToCart(item)} type="primary">
             ADD
           </Button>
         );

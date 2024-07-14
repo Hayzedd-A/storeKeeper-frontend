@@ -13,10 +13,6 @@ const AllProductsTable = ({ data, setData }) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      sorter: {
-        compare: (a, b) => a.name - b.name,
-        multiple: 1,
-      },
     },
     {
       title: "price",

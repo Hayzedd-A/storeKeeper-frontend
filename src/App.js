@@ -7,16 +7,21 @@ import History from "./pages/History";
 import NotFound from "./pages/NotFound";
 import { useState } from "react";
 import Nav from "./components/Nav";
+import Notification from "./components/Notification";
+import { NotificationContainer } from "react-notifications";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       exact: true,
-      element: <Sell />,
+      element: <Sell notification={Notification} />,
       errorElement: <NotFound />,
     },
-    { path: "/allProduct", element: <AllProducts /> },
+    {
+      path: "/allProduct",
+      element: <AllProducts Notification={Notification} />,
+    },
     { path: "/history", element: <History /> },
     // Add more routes as needed...
     // { path: "*", element: <NotFound /> },
@@ -24,6 +29,7 @@ function App() {
   ]);
   return (
     <div className="App">
+      <NotificationContainer />
       <Nav />
       <RouterProvider router={router} />
       {/* Add routes here */}
