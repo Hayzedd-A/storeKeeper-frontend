@@ -1,6 +1,11 @@
 import logo from "./logo.svg";
 import "../src/styles/styles.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useParams,
+  useLocation,
+} from "react-router-dom";
 import Sell from "./pages/Sell";
 import AllProducts from "./pages/AllProducts";
 import History from "./pages/History";
@@ -11,11 +16,14 @@ import Notification from "./components/Notification";
 import { NotificationContainer } from "react-notifications";
 
 function App() {
+  const [currentpage, setCurrentPage] = useState("sell");
   const router = createBrowserRouter([
     {
       path: "/",
       exact: true,
-      element: <Sell notification={Notification} />,
+      element: (
+        <Sell setCurrentPage={setCurrentPage} notification={Notification} />
+      ),
       errorElement: <NotFound />,
     },
     {
@@ -30,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <NotificationContainer />
-      <Nav />
+      <Nav currentpage={currentpage} />
       <RouterProvider router={router} />
       {/* Add routes here */}
       {/* <Home />
