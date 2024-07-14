@@ -4,6 +4,7 @@ import SellingTable from "../components/SellingTable";
 import "../styles/sell.css";
 import { Alert } from "antd";
 import CartTable from "../components/CartTable";
+import CartModal from "../components/CheckoutModal";
 
 function Sell({ notification }) {
   const [apiData, setApiData] = useState([]);
@@ -11,6 +12,7 @@ function Sell({ notification }) {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [error, setError] = useState(false);
   const [cartData, setCartData] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // Fetch API data and initialize the state
@@ -51,6 +53,7 @@ function Sell({ notification }) {
 
   return (
     <div className="sell-page">
+      <CartModal open={modalOpen} setOpen={setModalOpen} />
       <div className="header">
         {error && (
           <Alert
@@ -74,7 +77,11 @@ function Sell({ notification }) {
           />
         </div>
         <div className="cart">
-          <CartTable data={cartData} setData={setCartData} />
+          <CartTable
+            data={cartData}
+            setData={setCartData}
+            setModalOpen={setModalOpen}
+          />
         </div>
       </div>
     </div>

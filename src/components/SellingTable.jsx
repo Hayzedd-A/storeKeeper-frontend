@@ -3,9 +3,12 @@ import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
 const SellingTable = ({ setCartData, data, setData }) => {
   const addToCart = item => {
-    item.amount = item.purchaseValue * item.price;
+    const amount = parseFloat(
+      (Math.round(item.purchaseValue * item.price * 100) / 100).toFixed(2)
+    );
+    console.log(amount, typeof amount);
     setCartData(prev => {
-      return [...prev, item];
+      return [...prev, { ...item, amount }];
     });
   };
   const columns = [
@@ -118,6 +121,8 @@ const SellingTable = ({ setCartData, data, setData }) => {
     },
   ];
 
-  return <Table className="tableData" columns={columns} dataSource={data} />;
+  return (
+    <Table className="tableData" bordered columns={columns} dataSource={data} />
+  );
 };
 export default SellingTable;

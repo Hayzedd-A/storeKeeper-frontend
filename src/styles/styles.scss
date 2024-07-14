@@ -84,6 +84,8 @@ nav {
   }
 
   .main {
+    display: flex;
+    gap: 1em;
     .search {
       margin: 8px 0;
     }

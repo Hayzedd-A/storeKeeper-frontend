@@ -76,6 +76,8 @@ nav li a {
   background-color: rgb(40, 199, 235);
 }
 .sell-page .main {
+  display: flex;
+  gap: 1em;
   display: grid;
   grid-template-columns: 3fr 2fr;
 }

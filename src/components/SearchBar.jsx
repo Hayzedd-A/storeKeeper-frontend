@@ -7,7 +7,7 @@ function SearchBar({ setSearchKeyword }) {
   const [searchValue, setSearchValue] = useState("");
   return (
     <div className="search">
-      <AutoComplete autoComplete="true">
+      <AutoComplete autoComplete="true" allowClear={true}>
         <Search
           placeholder="Search available products"
           onChange={e => {
