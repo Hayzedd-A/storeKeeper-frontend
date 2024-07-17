@@ -80,7 +80,6 @@ function Sell({ notification, setCurrentPage }) {
 
   return (
     <div className="sell-page">
-      <CartModal open={modalOpen} setOpen={setModalOpen} />
       <div className="header">
         {error && (
           <Alert

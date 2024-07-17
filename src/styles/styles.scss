@@ -2,6 +2,7 @@ $tab-breakpoint: 950px;
 $mobile-breakpoint: 600px;
 nav {
   // height: 4em;
+  padding: 4px 1em;
   grid-column: span 2;
   display: flex;
   justify-content: space-between;
@@ -91,6 +92,9 @@ nav {
         }
       }
     }
+    .ant-card {
+      width: 13em !important;
+    }
   }
 
   .main {
@@ -104,6 +108,20 @@ nav {
     .ant-select {
       width: 100%;
     }
+    .sell {
+      .ant-table-title {
+        padding: 0.5em;
+      }
+      tr.ant-table-row {
+        td.ant-table-cell {
+          &:nth-child(3) {
+            &::before {
+              content: "₦ ";
+            }
+          }
+        }
+      }
+    }
     .cart {
       .cartTable {
         .ant-table-title {
@@ -114,7 +132,7 @@ nav {
             &:nth-child(2),
             &:nth-child(4) {
               &::before {
-                content: "₦";
+                content: "₦ ";
               }
             }
           }
@@ -139,5 +157,11 @@ nav {
         width: 100%;
       }
     }
+  }
+}
+
+.checkoutModal {
+  .ant-modal-component {
+    background-color: rgb(19, 45, 19);
   }
 }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-const CartModal = ({ open, setOpen }) => {
+import CheckoutTable from "./CheckoutTable";
+import "../styles/styles.css";
+const CheckoutModal = ({ open, setOpen, data }) => {
   const [loading, setLoading] = useState(false);
   //   const [open, setOpen] = useState(false);
   //   const showModal = () => {
@@ -11,37 +13,32 @@ const CartModal = ({ open, setOpen }) => {
     setTimeout(() => {
       setLoading(false);
       setOpen(false);
-    }, 3000);
+      // Reload page after checkout
+      window.location.reload();
+    }, 1000);
   };
   const handleCancel = () => {
     setOpen(false);
   };
   return (
-    <Modal
-      open={open}
-      title="Title"
-      onOk={handleOk}
-      onCancel={handleCancel}
-      footer={[
-        <Button key="back" onClick={handleCancel}>
-          Return
-        </Button>,
-        <Button
-          key="submit"
-          type="primary"
-          loading={loading}
-          onClick={handleOk}
-        >
-          Confirm
-        </Button>,
-      ]}
-    >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </Modal>
+    <div className="checkoutModal">
+      <Modal
+        open={open}
+        title="Reciept"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Return
+          </Button>,
+          <Button key="submit" type="" loading={loading} onClick={handleOk}>
+            Confirm
+          </Button>,
+        ]}
+      >
+        <CheckoutTable data={data} />
+      </Modal>
+    </div>
   );
 };
-export default CartModal;
+export default CheckoutModal;

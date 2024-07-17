@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-modal-content {
+  background-color: rgb(193, 244, 193);
+}

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
-const CartTable = ({ data, setData, setModalOpen }) => {
+import CheckoutModal from "./CheckoutModal";
+const CartTable = ({ data, setData }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [CheckoutData, setCheckoutData] = useState([]);
+  let totalAmount = data.reduce((acc, item) => acc + item.amount, 0).toFixed(2);
   const columns = [
     {
       title: "Name",
@@ -38,55 +42,81 @@ const CartTable = ({ data, setData, setModalOpen }) => {
       ),
     },
   ];
-  const deleteCartItem = id => {
-    setData(prev => prev.filter(item => item.id !== id));
+  const handleCheckout = () => {
+    setCheckoutData(() =>
+      data.map(item => {
+        let output = {};
+        output.id = item.id;
+        output.name = item.name;
+        output.price = item.price;
+        output.purchaseValue = item.purchaseValue;
+        output.amount = item.amount;
+        output.total = totalAmount;
+        return output;
+      })
+    );
+    console.log(CheckoutData);
+    console.log(data);
+    setModalOpen(true);
   };
 
   return (
-    <Table
-      className="cartTable"
-      columns={columns}
-      dataSource={data}
-      bordered
-      title={() => (
-        <span
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h3 style={{ margin: 0 }}>Cart</h3>
-          <Button danger icon={<DeleteOutlined />} onClick={() => setData([])}>
-            Empty Cart
-          </Button>
-        </span>
-      )}
-      footer={() => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <span>Total</span>
-          <span>
-            ₦ {data.reduce((acc, item) => acc + item.amount, 0).toFixed(2)}
-          </span>
-          <div className="button" style={{ display: "flex", gap: "1em" }}>
+    <div className="cartTable">
+      <Table
+        className="cartTable"
+        columns={columns}
+        dataSource={data}
+        bordered
+        title={() => (
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h3 style={{ margin: 0 }}>Cart</h3>
             <Button
-              ghost
-              type="primary"
-              icon={<DownloadOutlined />}
-              onClick={() => setModalOpen(() => Boolean(data.length))}
+              disabled={!data.length}
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => setData([])}
             >
-              Checkout
+              Empty Cart
             </Button>
+          </span>
+        )}
+        footer={() => (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span>Total</span>
+            <span>₦ {totalAmount}</span>
+            <div className="button" style={{ display: "flex", gap: "1em" }}>
+              <Button
+                disabled={!data.length}
+                ghost
+                type="primary"
+                icon={<DownloadOutlined />}
+                onClick={handleCheckout}
+              >
+                Checkout
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
-    />
+        )}
+      />
+
+      <CheckoutModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        data={CheckoutData}
+      />
+    </div>
   );
 };
 
