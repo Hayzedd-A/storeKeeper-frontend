@@ -5,6 +5,7 @@ import Notification from "./Notification";
 import "../styles/styles.css";
 const CheckoutModal = ({ open, setOpen, data }) => {
   const [loading, setLoading] = useState(false);
+  const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
   //   const [open, setOpen] = useState(false);
   //   const showModal = () => {
   //     setOpen(true);
@@ -29,7 +30,7 @@ const CheckoutModal = ({ open, setOpen, data }) => {
       console.log(purchaseData);
       setLoading(true);
       // Make API call to complete purchase
-      let apiResult = await fetch("http://localhost:8094/products/purchase", {
+      let apiResult = await fetch(`${BASE_URL}/products/purchase`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
