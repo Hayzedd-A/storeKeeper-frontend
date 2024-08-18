@@ -14,6 +14,7 @@ function AllProducts({ Notification }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
+  const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
 
   useEffect(() => {
     // Fetch API data and initialize the state
@@ -43,7 +44,7 @@ function AllProducts({ Notification }) {
     // };
     const fetchData = async () => {
       try {
-        let response = await fetch("http://localhost:8094/products/all");
+        let response = await fetch(`${BASE_URL}/products/all`);
         // let response = await fetch("https://dummyjson.com/products");
         // let response = await fetch("http://192.168.196.89:8094/products");
         response = await response.json();

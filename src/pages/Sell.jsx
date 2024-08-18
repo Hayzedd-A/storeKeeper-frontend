@@ -21,6 +21,7 @@ function Sell({ notification, setCurrentPage }) {
   const [cartData, setCartData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [reload, setReload] = useState(0);
+  const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
 
   useEffect(() => {
     // Fetch API data and initialize the state
@@ -51,7 +52,7 @@ function Sell({ notification, setCurrentPage }) {
       try {
         // get all products as the page loads
         // let response = await fetch("http://192.168.196.89:8094/products");
-        let response = await fetch("http://localhost:8094/products/all");
+        let response = await fetch(`${BASE_URL}/products/all`);
         response = await response.json();
         if (response.status) {
           setApiData(response.data);
