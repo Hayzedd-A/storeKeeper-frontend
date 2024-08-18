@@ -43,7 +43,7 @@ const CartTable = ({ data, setData }) => {
     },
   ];
   const handleCheckout = () => {
-    setCheckoutData(() =>
+    setCheckoutData(prev =>
       data.map(item => {
         let output = {};
         output.id = item.id;

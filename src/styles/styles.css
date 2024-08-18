@@ -65,18 +65,7 @@ nav .links .hambuger {
 .sell-page .main .cart .cartTable .ant-table-title {
   padding: 0.5em;
 }
-.sell-page
-  .main
-  .cart
-  .cartTable
-  tr.ant-table-row
-  td.ant-table-cell:nth-child(2)::before,
-.sell-page
-  .main
-  .cart
-  .cartTable
-  tr.ant-table-row
-  td.ant-table-cell:nth-child(4)::before {
+.sell-page .main .cart .cartTable tr.ant-table-row td.ant-table-cell:nth-child(2)::before, .sell-page .main .cart .cartTable tr.ant-table-row td.ant-table-cell:nth-child(4)::before {
   content: "₦ ";
 }
 @media (max-width: 950px) {
@@ -97,7 +86,12 @@ nav .links .hambuger {
 .allProducts .header .search .ant-select {
   width: 100%;
 }
+.allProducts .editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
 
 .checkoutModal .ant-modal-component {
   background-color: rgb(19, 45, 19);
-} /*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */

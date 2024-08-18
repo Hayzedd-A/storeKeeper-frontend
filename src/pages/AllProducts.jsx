@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import CategorySelect from "../components/CategorySelect";
-import AllProductsTable from "../components/AllProductTable";
+import AllProductsNewTable from "../components/AllProductNewTable";
 import Loading from "../components/Loading";
 import "../styles/styles.css";
 import { Alert, Button } from "antd";
@@ -17,42 +17,20 @@ function AllProducts({ Notification }) {
 
   useEffect(() => {
     // Fetch API data and initialize the state
-    const fetchData = async () => {
-      try {
-        let response = await fetch("https://dummyjson.com/products?limit=200");
-        let { products } = await response.json();
-        let ApiData = products.map(item => {
-          item.name = item.title;
-          item.quantity = item.stock;
-          item.image = item.thumbnail;
-          return item;
-        });
-        setData(ApiData);
-        setApiData(ApiData);
-        setCategory([...new Set(products.map(item => item.category))]);
-        setLoading(false);
-      } catch (error) {
-        console.log("error in fetch: ", error);
-        Notification("error", {
-          title: "Error",
-          body: "There was an error fetching the data, \n Please check your network connection",
-        })();
-        setLoading(false);
-        setError(true);
-      }
-    };
     // const fetchData = async () => {
     //   try {
-    //     let response = await fetch("http://localhost:8094/products");
-    //     // let response = await fetch("https://dummyjson.com/products");
-    //     // let response = await fetch("http://192.168.196.89:8094/products");
-    //     response = await response.json();
-    //     if (response.status) {
-    //       setApiData(response.data);
-    //       setData(response.data);
-    //       setCategory([...new Set(response.data.map(item => item.category))]);
-    //       setLoading(false);
-    //     }
+    //     let response = await fetch("https://dummyjson.com/products?limit=200");
+    //     let { products } = await response.json();
+    //     let ApiData = products.map(item => {
+    //       item.name = item.title;
+    //       item.quantity = item.stock;
+    //       item.image = item.thumbnail;
+    //       return item;
+    //     });
+    //     setData(ApiData);
+    //     setApiData(ApiData);
+    //     setCategory([...new Set(products.map(item => item.category))]);
+    //     setLoading(false);
     //   } catch (error) {
     //     console.log("error in fetch: ", error);
     //     Notification("error", {
@@ -63,6 +41,36 @@ function AllProducts({ Notification }) {
     //     setError(true);
     //   }
     // };
+    const fetchData = async () => {
+      try {
+        let response = await fetch("http://localhost:8094/products/all");
+        // let response = await fetch("https://dummyjson.com/products");
+        // let response = await fetch("http://192.168.196.89:8094/products");
+        response = await response.json();
+        if (response.status) {
+          setApiData(response.data);
+
+          setData(() => {
+            let data = response.data;
+            data.map(item => {
+              item.key = "key-" + item.id;
+            });
+            return data;
+          });
+          setCategory([...new Set(response.data.map(item => item.category))]);
+          setLoading(false);
+          setError(false);
+        }
+      } catch (error) {
+        console.log("error in fetch: ", error);
+        Notification("error", {
+          title: "Error",
+          body: "There was an error fetching the data, \n Please check your network connection",
+        })();
+        setLoading(false);
+        setError(true);
+      }
+    };
     fetchData();
   }, []);
 
@@ -107,7 +115,7 @@ function AllProducts({ Notification }) {
           setSelectedCategory={setSelectedCategory}
         />
       </div>
-      <AllProductsTable data={data} />
+      <AllProductsNewTable data={data} setData={setData} />
     </div>
   );
 }

@@ -14,10 +14,10 @@ function Notification(status, text) {
         NotificationManager.success(text.body, text.title);
         break;
       case "warning":
-        NotificationManager.warning(text.body, text.title, 3000);
+        NotificationManager.warning(text.body, text.title, 6000);
         break;
       case "error":
-        NotificationManager.error(text.body, text.title, 3000);
+        NotificationManager.error(text.body, text.title, 7000);
         break;
     }
   };

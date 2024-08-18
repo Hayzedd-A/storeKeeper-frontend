@@ -1,3 +1,4 @@
+// import("dotenv").config();
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SellingTable from "../components/SellingTable";
@@ -19,46 +20,50 @@ function Sell({ notification, setCurrentPage }) {
   const [error, setError] = useState(false);
   const [cartData, setCartData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     // Fetch API data and initialize the state
+    // const fetchData = async () => {
+    //   try {
+    //     let server_url = "http://localhost:8094/products";
+    //     console.log(server_url);
+    //     let response = await fetch(server_url);
+    //     response = await response.json();
+    //     if (response.products.length) {
+    //       setApiData(() => {
+    //         return response.products.map(item => {
+    //           item.name = item.title;
+    //           item.quantity = item.stock;
+    //           item.image = item.thumbnail;
+    //           return item;
+    //         });
+    //       });
+    //       console.log(apiData);
+    //     }
+    //   } catch (error) {
+    //     console.log("error in fetch: ", error);
+    //     setError(true);
+    //   }
+    // };
+
     const fetchData = async () => {
       try {
-        let response = await fetch("https://dummyjson.com/products?limit=200");
+        // get all products as the page loads
+        // let response = await fetch("http://192.168.196.89:8094/products");
+        let response = await fetch("http://localhost:8094/products/all");
         response = await response.json();
-        if (response.products.length) {
-          setApiData(() => {
-            return response.products.map(item => {
-              item.name = item.title;
-              item.quantity = item.stock;
-              item.image = item.thumbnail;
-              return item;
-            });
-          });
-          console.log(apiData);
+        if (response.status) {
+          setApiData(response.data);
         }
       } catch (error) {
         console.log("error in fetch: ", error);
+        // setApiData([]);
         setError(true);
       }
     };
     fetchData();
-    // const fetchData = async () => {
-    //   try {
-    //     // let response = await fetch("http://localhost:8094/products");
-    //     // let response = await fetch("http://192.168.196.89:8094/products");
-    //     response = await response.json();
-    //     if (response.status) {
-    //       setApiData(response.data);
-    //     }
-    //   } catch (error) {
-    //     console.log("error in fetch: ", error);
-    //     // setApiData([]);
-    //     setError(true);
-    //   }
-    // };
-    // fetchData();
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     // Filter the data based on the search keyword
@@ -72,6 +77,7 @@ function Sell({ notification, setCurrentPage }) {
         )
         .map(item => {
           item.purchaseValue = 1;
+          item.key = `key-${item.id}`;
           return item;
         });
       setData(filteredData);

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Popover, Card } from "antd";
+import React, { useRef, useState } from "react";
+import { Table, Input, Button, Popover, Card, Tooltip } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
 const SellingTable = ({ setCartData, data, setData }) => {
@@ -7,6 +7,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
   const hidePopover = () => {
     setOpen(false);
   };
+  const inputRef = useRef([]);
   const handleOpenChange = newOpen => {
     console.log(newOpen);
     setOpen(newOpen);
@@ -23,7 +24,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
             key={i}
             value={i}
             onClick={e => handleInputChange(e, item)}
-            disabled={item.quantity < 1}
+            disabled={item.quantity < i}
           >
             {i}
           </Button>
@@ -33,7 +34,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
       <>
         <Card
           style={{
-            width: 300,
+            width: 173,
           }}
         >
           {numbersBtn}
@@ -47,26 +48,40 @@ const SellingTable = ({ setCartData, data, setData }) => {
     const amount = parseFloat(
       (Math.round(item.purchaseValue * item.price * 100) / 100).toFixed(2)
     );
-    // hide tooltip
+    console.log(amount);
     hidePopover();
-    console.log(amount, typeof amount);
     setCartData(prev => {
+      console.log(prev);
+      let cartItemIndex = prev.findIndex(({ id }) => item.id === id);
+      if (cartItemIndex >= 0) {
+        console.log(cartItemIndex);
+        prev[cartItemIndex].purchaseValue += item.purchaseValue;
+        prev[cartItemIndex].amount = parseFloat(
+          (prev[cartItemIndex].amount += amount).toFixed(2)
+        );
+        // cartItem.purchaseValue += item.purchaseValue;
+        // cartItem.amount += amount;
+        // console.log(cartItem);
+        return [...prev];
+      }
       return [...prev, { ...item, amount }];
     });
   };
   const handleInputChange = (e, eachData) => {
     hidePopover();
     let newValue = parseInt(e.target.value);
-    if (isNaN(newValue) || newValue < 1) {
-      console.log("Invalid input. Please enter a positive integer.");
-      return;
+    console.log(newValue);
+    if (isNaN(newValue)) {
+      newValue = 0;
     }
     setData(prev => {
-      data = prev.map(item => {
-        if (item.id === eachData.id) item.purchaseValue = newValue;
+      return prev.map(item => {
+        if (item.id === eachData.id) {
+          if (item.purchaseValue === 0) item.purchaseValue += newValue;
+          item.purchaseValue = newValue;
+        }
         return item;
       });
-      return data;
     });
   };
   const columns = [
@@ -116,15 +131,16 @@ const SellingTable = ({ setCartData, data, setData }) => {
               value={eachData.purchaseValue}
               style={{ width: "10em" }}
               onChange={e => handleInputChange(e, eachData)}
+              ref={el => (inputRef.current[eachData.id] = el)}
               addonBefore={
                 <span
                   // Decrementing
                   onClick={() => {
-                    let newValue = --eachData.purchaseValue;
-                    if (newValue <= 0) {
+                    if (eachData.purchaseValue < 1) {
                       console.log("Cannot decrement further");
                       return;
                     }
+                    let newValue = --eachData.purchaseValue;
                     console.log(newValue);
                     setData(prev => {
                       data = prev.map(item => {
@@ -145,6 +161,10 @@ const SellingTable = ({ setCartData, data, setData }) => {
                   className="actionButton"
                   size={"1em"}
                   onClick={() => {
+                    if (eachData.purchaseValue >= eachData.quantity) {
+                      console.log("Cannot increment further");
+                      return;
+                    }
                     let newValue = ++eachData.purchaseValue;
                     setData(prev => {
                       data = prev.map(item => {
@@ -166,10 +186,27 @@ const SellingTable = ({ setCartData, data, setData }) => {
       title: "action",
       key: "id",
       render: item => {
+        const tooltipTitle = () => {
+          if (item.quantity < 1) return "Item is out of stock";
+          else if (item.purchaseValue < 1) return "Select a quantity";
+          else if (item.purchaseValue > item.quantity)
+            return "Purchase value is more than stock";
+          else return "Add to cart";
+        };
+        const invalid =
+          item.quantity < 1 ||
+          item.purchaseValue === 0 ||
+          item.purchaseValue > item.quantity;
         return (
-          <Button onClick={() => addToCart(item)} type="primary">
-            ADD
-          </Button>
+          <Tooltip title={tooltipTitle}>
+            <Button
+              onClick={() => addToCart(item)}
+              type="primary"
+              disabled={invalid}
+            >
+              ADD
+            </Button>
+          </Tooltip>
         );
       },
     },
