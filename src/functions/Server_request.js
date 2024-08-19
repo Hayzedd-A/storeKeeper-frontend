@@ -1,12 +1,15 @@
 const updateProduct = async product => {
   try {
-    const response = await fetch("http://localhost:8094/products/update", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    });
+    const response = await fetch(
+      "https://storekeeper-server-76iw.onrender.com/products/update",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      }
+    );
 
     if (!response.ok) {
       return `Error: ${response.statusText}`;
