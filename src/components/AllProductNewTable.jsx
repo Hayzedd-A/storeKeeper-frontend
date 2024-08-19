@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { updateProduct } from "../functions/Server_request";
+import { LoadingOutlined } from "@ant-design/icons";
 import {
   Form,
   Input,
   InputNumber,
   Popconfirm,
   Space,
+  Spin,
   Table,
   Tooltip,
   Typography,
 } from "antd";
 import { render } from "@testing-library/react";
+
 const originData = [];
 for (let i = 0; i < 100; i++) {
   originData.push({
@@ -22,6 +25,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 const AllProductNewTable = ({ data, setData }) => {
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   // const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
@@ -40,6 +44,7 @@ const AllProductNewTable = ({ data, setData }) => {
   };
   const save = async ({ key, quantity: InitialQuantity }) => {
     try {
+      setLoading(true);
       // console.log(key);
       const row = await form.validateFields();
       console.log(row);
@@ -52,6 +57,7 @@ const AllProductNewTable = ({ data, setData }) => {
       };
       console.log(updatedData);
       let fetchResult = await updateProduct(updatedData);
+
       if (!fetchResult.status) throw new Error(fetchResult.message);
       console.log("row: ", row);
       row.quantity = updatedData.quantity;
@@ -63,6 +69,7 @@ const AllProductNewTable = ({ data, setData }) => {
           ...item,
           ...row,
         });
+        setLoading(false);
         setData(newData);
         // console.log(newData);
         setEditingKey("");
@@ -114,6 +121,7 @@ const AllProductNewTable = ({ data, setData }) => {
               defaultValue={0}
               placeholder="Enter new quantity"
             />
+            {/* <Spin /> */}
           </Tooltip>
         </Space.Compact>
       ) : (
@@ -186,19 +194,23 @@ const AllProductNewTable = ({ data, setData }) => {
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
+          loading ? (
+            <Spin indicator={<LoadingOutlined spin />} size="small" />
+          ) : (
+            <span>
+              <Typography.Link
+                onClick={() => save(record)}
+                style={{
+                  marginRight: 8,
+                }}
+              >
+                Save
+              </Typography.Link>
+              <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+                <a>Cancel</a>
+              </Popconfirm>
+            </span>
+          )
         ) : (
           <Typography.Link
             disabled={editingKey !== ""}
