@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { updateProduct } from "../functions/Server_request";
 import { LoadingOutlined } from "@ant-design/icons";
 import {
+  Button,
   Form,
   Input,
   InputNumber,
@@ -13,16 +14,6 @@ import {
   Typography,
 } from "antd";
 import { render } from "@testing-library/react";
-
-const originData = [];
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
 
 const AllProductNewTable = ({ data, setData }) => {
   const [loading, setLoading] = useState(false);
@@ -39,14 +30,17 @@ const AllProductNewTable = ({ data, setData }) => {
     });
     setEditingKey(record.key);
   };
+
   const cancel = () => {
     setEditingKey("");
   };
+
   const save = async ({ key, quantity: InitialQuantity }) => {
     try {
       setLoading(true);
       // console.log(key);
       const row = await form.validateFields();
+
       console.log(row);
       const newQuantity = Number(row.quantity);
       console.log(newQuantity);
@@ -118,7 +112,7 @@ const AllProductNewTable = ({ data, setData }) => {
           <Tooltip title="Enter new quantity">
             <Input
               style={{ width: "50%" }}
-              defaultValue={0}
+              defaultValue={""}
               placeholder="Enter new quantity"
             />
             {/* <Spin /> */}
@@ -195,7 +189,10 @@ const AllProductNewTable = ({ data, setData }) => {
         const editable = isEditing(record);
         return editable ? (
           loading ? (
-            <Spin indicator={<LoadingOutlined spin />} size="small" />
+            <div className="loadingAction">
+              <Spin indicator={<LoadingOutlined spin />} size="small" />
+              <Button onClick={() => setLoading(false)}>Cancel</Button>
+            </div>
           ) : (
             <span>
               <Typography.Link

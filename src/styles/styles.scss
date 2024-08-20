@@ -163,6 +163,11 @@ nav {
     top: 100%;
     font-size: 12px;
   }
+  .loadingAction {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+  }
 }
 
 .checkoutModal {

@@ -91,6 +91,11 @@ nav .links .hambuger {
   top: 100%;
   font-size: 12px;
 }
+.allProducts .loadingAction {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+}
 
 .checkoutModal .ant-modal-component {
   background-color: rgb(19, 45, 19);

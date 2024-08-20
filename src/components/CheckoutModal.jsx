@@ -55,7 +55,9 @@ const CheckoutModal = ({ open, setOpen, data }) => {
         })();
         setLoading(false);
         setOpen(false);
-        // window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
     } catch (err) {
       console.error(err);
@@ -65,7 +67,9 @@ const CheckoutModal = ({ open, setOpen, data }) => {
       })();
       setLoading(false);
       setOpen(false);
-      // window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   };
   const handleCancel = () => {
