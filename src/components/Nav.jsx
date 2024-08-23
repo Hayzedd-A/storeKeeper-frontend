@@ -26,36 +26,36 @@ const items = [
     label: <a href="/history?value=history">History</a>,
     key: "history",
     icon: <FundViewOutlined />,
-    children: [
-      {
-        type: "group",
-        label: "Days",
-        children: [
-          {
-            label: "Today",
-            key: "setting:1",
-          },
-          {
-            label: "Yesterday",
-            key: "setting:2",
-          },
-        ],
-      },
-      {
-        type: "group",
-        label: "Weeks",
-        children: [
-          {
-            label: "This Week",
-            key: "setting:3",
-          },
-          {
-            label: "Last week",
-            key: "setting:4",
-          },
-        ],
-      },
-    ],
+    // children: [
+    //   {
+    //     type: "group",
+    //     label: "Days",
+    //     children: [
+    //       {
+    //         label: "Today",
+    //         key: "setting:1",
+    //       },
+    //       {
+    //         label: "Yesterday",
+    //         key: "setting:2",
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     type: "group",
+    //     label: "Weeks",
+    //     children: [
+    //       {
+    //         label: "This Week",
+    //         key: "setting:3",
+    //       },
+    //       {
+    //         label: "Last week",
+    //         key: "setting:4",
+    //       },
+    //     ],
+    //   },
+    // ],
   },
   {
     key: "profile",

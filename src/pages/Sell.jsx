@@ -1,5 +1,5 @@
 // import("dotenv").config();
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SearchBar from "../components/SearchBar";
 import SellingTable from "../components/SellingTable";
 import { useLocation } from "react-router-dom";
@@ -7,6 +7,7 @@ import "../styles/sell.css";
 import { Alert } from "antd";
 import CartTable from "../components/CartTable";
 import CartModal from "../components/CheckoutModal";
+import { triggerFocus } from "antd/es/input/Input";
 
 function Sell({ notification, setCurrentPage }) {
   const { search } = useLocation();
@@ -17,50 +18,57 @@ function Sell({ notification, setCurrentPage }) {
   const [apiData, setApiData] = useState([]);
   const [data, setData] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [error, setError] = useState(false);
+  const [showActionButton, setShowActionButton] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(
+    "Getting data, please Wait..."
+  );
+  const [showAlert, setShowAlert] = useState(true);
+  const [alertType, setAlertType] = useState("info");
   const [cartData, setCartData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [reload, setReload] = useState(0);
+  const [reload, setReload] = useState(true);
   const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
 
-  useEffect(() => {
-    // Fetch API data and initialize the state
-    // const fetchData = async () => {
-    //   try {
-    //     let server_url = "http://localhost:8094/products";
-    //     console.log(server_url);
-    //     let response = await fetch(server_url);
-    //     response = await response.json();
-    //     if (response.products.length) {
-    //       setApiData(() => {
-    //         return response.products.map(item => {
-    //           item.name = item.title;
-    //           item.quantity = item.stock;
-    //           item.image = item.thumbnail;
-    //           return item;
-    //         });
-    //       });
-    //       console.log(apiData);
-    //     }
-    //   } catch (error) {
-    //     console.log("error in fetch: ", error);
-    //     setError(true);
-    //   }
-    // };
+  const reloader = () => {
+    setReload(prev => !prev);
+    setSearchKeyword("");
+    setCartData([]);
+  };
 
+  useEffect(() => {
+    let timeOutID;
     const fetchData = async () => {
       try {
+        timeOutID = setTimeout(() => {
+          setAlertMessage(
+            "Connection seams to be lost, click the Reload button           "
+          );
+          setAlertType("warning");
+          setShowActionButton(true);
+        }, 30000);
         // get all products as the page loads
         // let response = await fetch("http://192.168.196.89:8094/products");
+        console.log("starting fetch");
         let response = await fetch(`${BASE_URL}/products/all`);
         response = await response.json();
         if (response.status) {
           setApiData(response.data);
         }
+        clearTimeout(timeOutID);
+        setAlertMessage("Data fetched successfully");
+        setAlertType("success");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2000);
       } catch (error) {
         console.log("error in fetch: ", error);
         // setApiData([]);
-        setError(true);
+        clearTimeout(timeOutID);
+        setShowActionButton(true);
+        setAlertMessage(
+          "Error fetching data, Reload the page when network connectivity is restored"
+        );
+        setAlertType("error");
       }
     };
     fetchData();
@@ -88,14 +96,17 @@ function Sell({ notification, setCurrentPage }) {
   return (
     <div className="sell-page">
       <div className="header">
-        {error && (
+        {showAlert && (
           <Alert
-            message="Error fetching data, Reload the page when network connectivity is restored"
-            type="error"
+            message={alertMessage}
+            type={alertType}
+            // closable
             action={
-              <a type="primary" onClick={() => window.location.reload()}>
-                Reload
-              </a>
+              showActionButton && (
+                <a type="primary" onClick={() => window.location.reload()}>
+                  Reload
+                </a>
+              )
             }
           />
         )}
@@ -111,6 +122,7 @@ function Sell({ notification, setCurrentPage }) {
         </div>
         <div className="cart">
           <CartTable
+            reloader={reloader}
             data={cartData}
             setData={setCartData}
             setModalOpen={setModalOpen}

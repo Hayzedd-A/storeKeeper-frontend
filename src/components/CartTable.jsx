@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 import CheckoutModal from "./CheckoutModal";
-const CartTable = ({ data, setData }) => {
+const CartTable = ({ reloader, data, setData }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [CheckoutData, setCheckoutData] = useState([]);
   let totalAmount = data.reduce((acc, item) => acc + item.amount, 0).toFixed(2);
@@ -112,6 +112,7 @@ const CartTable = ({ data, setData }) => {
       />
 
       <CheckoutModal
+        reloader={reloader}
         open={modalOpen}
         setOpen={setModalOpen}
         data={CheckoutData}

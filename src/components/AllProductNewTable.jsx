@@ -18,6 +18,7 @@ import { render } from "@testing-library/react";
 const AllProductNewTable = ({ data, setData }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const [quantityVal, setQuantitVal] = useState("");
   // const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
   const isEditing = record => record.key === editingKey;
@@ -113,6 +114,8 @@ const AllProductNewTable = ({ data, setData }) => {
             <Input
               style={{ width: "50%" }}
               defaultValue={""}
+              value={quantityVal}
+              onChange={e => setQuantitVal(e.target.value)}
               placeholder="Enter new quantity"
             />
             {/* <Spin /> */}

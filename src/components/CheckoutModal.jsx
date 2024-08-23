@@ -3,7 +3,7 @@ import { Button, Modal } from "antd";
 import CheckoutTable from "./CheckoutTable";
 import Notification from "./Notification";
 import "../styles/styles.css";
-const CheckoutModal = ({ open, setOpen, data }) => {
+const CheckoutModal = ({ reloader, open, setOpen, data }) => {
   const [loading, setLoading] = useState(false);
   const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
   //   const [open, setOpen] = useState(false);
@@ -55,9 +55,10 @@ const CheckoutModal = ({ open, setOpen, data }) => {
         })();
         setLoading(false);
         setOpen(false);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
+        reloader();
       }
     } catch (err) {
       console.error(err);
@@ -67,9 +68,10 @@ const CheckoutModal = ({ open, setOpen, data }) => {
       })();
       setLoading(false);
       setOpen(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 2000);
+      reloader();
     }
   };
   const handleCancel = () => {
