@@ -5,7 +5,8 @@ import Notification from "./Notification";
 import "../styles/styles.css";
 const CheckoutModal = ({ reloader, open, setOpen, data }) => {
   const [loading, setLoading] = useState(false);
-  const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
+  // const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
+  const BASE_URL = "http://localhost:8094";
   //   const [open, setOpen] = useState(false);
   //   const showModal = () => {
   //     setOpen(true);
