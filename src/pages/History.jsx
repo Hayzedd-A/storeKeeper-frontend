@@ -23,7 +23,7 @@ function History() {
   return (
     <div>
       <Controls />
-      <History_Table />
+      <History_Table history_data={data} />
       History
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Badge, Dropdown, Space, Table } from "antd";
+import HistoryData from "./HistoryData";
 const items = [
   {
     key: "1",
@@ -11,28 +12,29 @@ const items = [
     label: "Action 2",
   },
 ];
-const History_Table = () => {
-  const expandedRowRender = () => {
+const History_Table = ({ history_data }) => {
+  const table_data = () => {
     const columns = [
       {
         title: "Date",
-        dataIndex: "date",
-        key: "date",
+        dataIndex: "created_at",
+        key: "sale_id",
       },
       {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
+        title: "products",
+        dataIndex: "products",
+        render: (product) => <HistoryData data={product} />,
+        key: "sale_id",
       },
       {
         title: "Status",
         key: "state",
-        render: () => <Badge status="success" text="Finished" />,
+        render: () => <Badge status="success" text="completed" />,
       },
       {
-        title: "Upgrade Status",
-        dataIndex: "upgradeNum",
-        key: "upgradeNum",
+        title: "Amount",
+        dataIndex: "total_amount",
+        key: "sale_id",
       },
       {
         title: "Action",
@@ -54,17 +56,10 @@ const History_Table = () => {
         ),
       },
     ];
-    const data = [];
-    for (let i = 0; i < 3; ++i) {
-      data.push({
-        key: i.toString(),
-        date: "2014-12-24 23:12:00",
-        name: "This is production name",
-        upgradeNum: "Upgraded: 56",
-      });
-    }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
+    return (
+      <Table columns={columns} dataSource={history_data} pagination={false} />
+    );
   };
-  return expandedRowRender();
+  return table_data();
 };
 export default History_Table;
