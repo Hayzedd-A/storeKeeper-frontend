@@ -8,6 +8,7 @@ import { Alert } from "antd";
 import CartTable from "../components/CartTable";
 import CartModal from "../components/CheckoutModal";
 import { triggerFocus } from "antd/es/input/Input";
+import NetworkStatus from "../components/NetworkStatus";
 
 function Sell({ notification, setCurrentPage }) {
   const { search } = useLocation();
@@ -96,22 +97,13 @@ function Sell({ notification, setCurrentPage }) {
 
   return (
     <div className="sell-page">
-      <div className="header">
-        {showAlert && (
-          <Alert
-            message={alertMessage}
-            type={alertType}
-            // closable
-            action={
-              showActionButton && (
-                <a type="primary" onClick={() => window.location.reload()}>
-                  Reload
-                </a>
-              )
-            }
-          />
-        )}
-      </div>
+      {showAlert && (
+        <NetworkStatus
+          showActionButton={showActionButton}
+          alertMessage={alertMessage}
+          alertType={alertType}
+        />
+      )}
       <div className="main">
         <div className="sell">
           <SearchBar setSearchKeyword={setSearchKeyword} />

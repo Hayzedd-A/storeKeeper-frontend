@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
-const CheckoutTable = ({ data }) => {
+const CheckoutTable = ({ data, heading, usage }) => {
+  const [loading, setLoading] = useState(false);
   const columns = [
     {
       title: "Name",
@@ -25,14 +26,34 @@ const CheckoutTable = ({ data }) => {
     },
   ];
 
+  const total = usage == "history" ? data.total_amount : data[0].total;
+  if (usage === "history") {
+    columns.push({
+      title: "Action",
+      key: "action",
+      render: ({ id }) => (
+        <Space size="middle">
+          <Button
+            type="danger"
+            loading={loading}
+            onClick={console.log(id, "is clicked")}
+          >
+            Refund
+          </Button>
+        </Space>
+      ),
+    });
+  }
+
   return (
     <Table
       className="cartTable"
       columns={columns}
       dataSource={data}
+      pagination={false}
       bordered
       title={() => (
-        <h3 style={{ margin: 0, color: "greenyellow" }}>Purchase Successful</h3>
+        <h3 style={{ margin: 0, color: "greenyellow" }}>{heading}</h3>
       )}
       footer={() => (
         <div
@@ -44,7 +65,7 @@ const CheckoutTable = ({ data }) => {
           }}
         >
           <span>Total</span>
-          <span>₦ {data[0].total}</span>
+          <span>₦ {total}</span>
         </div>
       )}
     />

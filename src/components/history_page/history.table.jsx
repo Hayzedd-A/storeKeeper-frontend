@@ -2,17 +2,6 @@ import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Badge, Button, Dropdown, Radio, Space, Table } from "antd";
 import HistoryData from "./HistoryData";
-const items = [
-  {
-    key: "1",
-    label: "Action 1",
-  },
-  {
-    key: "2",
-    label: "Action 2",
-  },
-];
-console.log("items", items);
 const History_Table = ({ history_data }) => {
   const table_data = () => {
     const columns = [
@@ -43,14 +32,13 @@ const History_Table = ({ history_data }) => {
         render: () => (
           <Space onChange={e => console.log(e)}>
             <Button value="large">Refund</Button>
-            <Button value="default">Modify</Button>
             <Button value="small">View</Button>
           </Space>
         ),
       },
     ];
     return (
-      <Table columns={columns} dataSource={history_data} pagination={false} />
+      <Table columns={columns} dataSource={history_data} pagination={true} />
     );
   };
   return table_data();

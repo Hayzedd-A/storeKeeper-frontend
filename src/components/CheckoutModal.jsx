@@ -99,7 +99,7 @@ const CheckoutModal = ({ reloader, open, setOpen, data }) => {
           </Button>,
         ]}
       >
-        <CheckoutTable data={data} />
+        <CheckoutTable data={data} heading="Purchase completed" />
       </Modal>
     </div>
   );
