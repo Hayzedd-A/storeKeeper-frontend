@@ -175,3 +175,13 @@ nav {
     background-color: rgb(19, 45, 19);
   }
 }
+
+.history {
+  td.ant-table-cell {
+    &:nth-of-type(4) {
+      &::before {
+        content: "₦ ";
+      }
+    }
+  }
+}

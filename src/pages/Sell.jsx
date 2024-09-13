@@ -27,8 +27,8 @@ function Sell({ notification, setCurrentPage }) {
   const [cartData, setCartData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [reload, setReload] = useState(true);
-  // const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
-  const BASE_URL = "http://localhost:8094";
+  const BASE_URL = "https://storekeeper-server-76iw.onrender.com";
+  // const BASE_URL = "http://localhost:8094";
 
   const reloader = () => {
     setReload(prev => !prev);

@@ -99,4 +99,8 @@ nav .links .hambuger {
 
 .checkoutModal .ant-modal-component {
   background-color: rgb(19, 45, 19);
+}
+
+.history td.ant-table-cell:nth-of-type(4)::before {
+  content: "₦ ";
 }/*# sourceMappingURL=styles.css.map */

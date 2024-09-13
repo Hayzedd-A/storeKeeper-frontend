@@ -1,6 +1,6 @@
 import React from "react";
 import { DownOutlined } from "@ant-design/icons";
-import { Badge, Dropdown, Space, Table } from "antd";
+import { Badge, Button, Dropdown, Radio, Space, Table } from "antd";
 import HistoryData from "./HistoryData";
 const items = [
   {
@@ -12,6 +12,7 @@ const items = [
     label: "Action 2",
   },
 ];
+console.log("items", items);
 const History_Table = ({ history_data }) => {
   const table_data = () => {
     const columns = [
@@ -23,7 +24,7 @@ const History_Table = ({ history_data }) => {
       {
         title: "products",
         dataIndex: "products",
-        render: (product) => <HistoryData data={product} />,
+        render: product => <HistoryData data={product} />,
         key: "sale_id",
       },
       {
@@ -40,18 +41,10 @@ const History_Table = ({ history_data }) => {
         title: "Action",
         key: "operation",
         render: () => (
-          <Space size="middle">
-            <a>Pause</a>
-            <a>Stop</a>
-            <Dropdown
-              menu={{
-                items,
-              }}
-            >
-              <a>
-                More <DownOutlined />
-              </a>
-            </Dropdown>
+          <Space onChange={e => console.log(e)}>
+            <Button value="large">Refund</Button>
+            <Button value="default">Modify</Button>
+            <Button value="small">View</Button>
           </Space>
         ),
       },
