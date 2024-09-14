@@ -86,6 +86,13 @@ nav .links .hambuger {
 .allProducts .header .search .ant-select {
   width: 100%;
 }
+.allProducts table tbody td.ant-table-cell:first-child {
+  padding: 0;
+}
+.allProducts table tbody td.ant-table-cell:first-child img {
+  height: 45px;
+  width: auto;
+}
 .allProducts .editable-row .ant-form-item-explain {
   position: absolute;
   top: 100%;

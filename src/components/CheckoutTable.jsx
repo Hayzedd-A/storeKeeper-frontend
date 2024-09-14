@@ -3,6 +3,7 @@ import { Button, Space, Table } from "antd";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 const CheckoutTable = ({ data, heading, usage }) => {
   const [loading, setLoading] = useState(false);
+  console.log("table-data", data);
   const columns = [
     {
       title: "Name",

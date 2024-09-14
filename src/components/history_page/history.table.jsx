@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Radio, Space, Table } from "antd";
+import { Badge, Button, Dropdown, Modal, Radio, Space, Table } from "antd";
 import HistoryData from "./HistoryData";
+import CheckoutTable from "../CheckoutTable";
 const History_Table = ({ history_data }) => {
+  const [viewHistory, setViewHistory] = useState(false);
+  const [selectedHistory, setSelectedHistory] = useState([]);
+  const handleViewHistory = history => {
+    history.products.forEach(product => {
+      product.price = product.amount / product.quantity;
+      product.id = product.product_id;
+    });
+    console.log("this", history);
+    setSelectedHistory(history);
+    setViewHistory(true);
+    console.log("operation invoked");
+  };
   const table_data = () => {
     const columns = [
       {
@@ -29,16 +42,25 @@ const History_Table = ({ history_data }) => {
       {
         title: "Action",
         key: "operation",
-        render: () => (
+        render: history => (
           <Space onChange={e => console.log(e)}>
             <Button value="large">Refund</Button>
-            <Button value="small">View</Button>
+            <Button value="small" onClick={() => handleViewHistory(history)}>
+              View
+            </Button>
           </Space>
         ),
       },
     ];
     return (
-      <Table columns={columns} dataSource={history_data} pagination={true} />
+      <>
+        <Table columns={columns} dataSource={history_data} pagination={true} />
+        {viewHistory && (
+          <Modal>
+            <CheckoutTable data={selectedHistory} usage="history" />
+          </Modal>
+        )}
+      </>
     );
   };
   return table_data();

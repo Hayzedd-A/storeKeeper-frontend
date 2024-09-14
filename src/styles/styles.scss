@@ -158,6 +158,17 @@ nav {
       }
     }
   }
+  table {
+    tbody {
+      td.ant-table-cell:first-child {
+        padding: 0;
+        img {
+          height: 45px;
+          width: auto;
+        }
+      }
+    }
+  }
   .editable-row .ant-form-item-explain {
     position: absolute;
     top: 100%;
