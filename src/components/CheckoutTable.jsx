@@ -27,7 +27,8 @@ const CheckoutTable = ({ data, heading, usage }) => {
     },
   ];
 
-  const total = usage == "history" ? data.total_amount : data[0].total;
+  const total = usage == "history" ? "data.total_amount" : data[0].total;
+  // const total = usage == "history" ? data.total_amount : data[0].total;
   if (usage === "history") {
     columns.push({
       title: "Action",

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-const App = () => {
-  const [open, setOpen] = useState(false);
+const HistoryModal = ({ children, open, setOpen }) => {
+  // const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
   const showModal = () => {
@@ -25,15 +25,15 @@ const App = () => {
         Open Modal with async logic
       </Button>
       <Modal
-        title="Title"
+        title="The purchase was completed"
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <p>{modalText}</p>
+        {children}
       </Modal>
     </>
   );
 };
-export default App;
+export default HistoryModal;
