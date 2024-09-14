@@ -6,17 +6,17 @@ import HistoryModal from "./HistoryModal";
 import CheckoutTable from "../CheckoutTable";
 const History_Table = ({ history_data }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [viewHistory, setViewHistory] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState([]);
   const handleViewHistory = history => {
     history.products.forEach(product => {
-      product.price = product.amount / product.quantity;
+      product.price =
+        Math.round((product.amount / product.quantity) * 100) / 100;
+
       product.id = product.product_id;
       product.purchaseValue = product.quantity;
     });
     console.log("this", history);
     setSelectedHistory(history);
-    setViewHistory(true);
 
     setModalOpen(true);
     console.log("operation invoked");
@@ -61,7 +61,11 @@ const History_Table = ({ history_data }) => {
       <>
         <Table columns={columns} dataSource={history_data} pagination={true} />
         <HistoryModal open={modalOpen} setOpen={setModalOpen}>
-          <CheckoutTable data={selectedHistory.products} usage="history" />
+          <CheckoutTable
+            data={selectedHistory.products}
+            total_amount={selectedHistory.total_amount}
+            usage="history"
+          />
         </HistoryModal>
       </>
     );

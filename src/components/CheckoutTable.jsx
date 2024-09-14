@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Space, Table } from "antd";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
-const CheckoutTable = ({ data, heading, usage }) => {
+const CheckoutTable = ({ data, heading, usage, total_amount }) => {
   const [loading, setLoading] = useState(false);
   console.log("table-data", data);
   const columns = [
@@ -27,7 +27,7 @@ const CheckoutTable = ({ data, heading, usage }) => {
     },
   ];
 
-  const total = usage == "history" ? "data.total_amount" : data[0].total;
+  const total = usage == "history" ? total_amount : data[0].total;
   // const total = usage == "history" ? data.total_amount : data[0].total;
   if (usage === "history") {
     columns.push({
