@@ -21,9 +21,6 @@ const HistoryModal = ({ children, open, setOpen }) => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
-      </Button>
       <Modal
         title="The purchase was completed"
         open={open}
