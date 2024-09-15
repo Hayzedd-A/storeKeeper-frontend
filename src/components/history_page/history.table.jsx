@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Radio, Space, Table } from "antd";
+import {
+  Badge,
+  Button,
+  Descriptions,
+  Dropdown,
+  Radio,
+  Space,
+  Table,
+} from "antd";
 import HistoryData from "./HistoryData";
 import HistoryModal from "./HistoryModal";
 import CheckoutTable from "../CheckoutTable";
+import { render } from "@testing-library/react";
 const History_Table = ({ history_data }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState([]);
@@ -15,11 +24,9 @@ const History_Table = ({ history_data }) => {
       product.id = product.product_id;
       product.purchaseValue = product.quantity;
     });
-    console.log("this", history);
     setSelectedHistory(history);
 
     setModalOpen(true);
-    console.log("operation invoked");
   };
   const table_data = () => {
     const columns = [
@@ -27,16 +34,27 @@ const History_Table = ({ history_data }) => {
         title: "Date",
         dataIndex: "created_at",
         key: "sale_id",
+        render: dateTime => {
+          let [date, time] = dateTime.split("T");
+          time = time.split(".")[0];
+          return (
+            <>
+              <span>{date}</span>
+              <br />
+              <span>{time}</span>
+            </>
+          );
+        },
       },
       {
-        title: "products",
+        title: "Products",
         dataIndex: "products",
         render: product => <HistoryData data={product} />,
         key: "sale_id",
       },
       {
         title: "Status",
-        key: "state",
+        key: "sale_id",
         render: () => <Badge status="success" text="completed" />,
       },
       {
@@ -46,7 +64,7 @@ const History_Table = ({ history_data }) => {
       },
       {
         title: "Action",
-        key: "operation",
+        key: "sale_id",
         render: history => (
           <Space onChange={e => console.log(e)}>
             <Button value="large">Refund</Button>

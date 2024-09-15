@@ -13,17 +13,17 @@ const CartTable = ({ reloader, data, setData }) => {
       key: "id",
     },
     {
-      title: "price",
+      title: "Price",
       dataIndex: "price",
       key: "id",
     },
     {
-      title: "quantity",
+      title: "Quantity",
       dataIndex: "purchaseValue",
       key: "id",
     },
     {
-      title: "amount",
+      title: "Amount",
       dataIndex: "amount",
       key: "id",
     },

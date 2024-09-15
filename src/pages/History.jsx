@@ -37,7 +37,6 @@ function History() {
         setTimeout(() => {
           setShowAlert(false);
         }, 2000);
-        console.log(history);
       } catch (error) {
         console.error("Error fetching history data:", error);
       }

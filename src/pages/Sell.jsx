@@ -15,7 +15,6 @@ function Sell({ notification, setCurrentPage }) {
   const params = new URLSearchParams(search);
   const value = params.get("value");
   setCurrentPage(value);
-  console.log(value);
   const [apiData, setApiData] = useState([]);
   const [data, setData] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -50,7 +49,7 @@ function Sell({ notification, setCurrentPage }) {
         }, 30000);
         // get all products as the page loads
         // let response = await fetch("http://192.168.196.89:8094/products");
-        console.log("starting fetch");
+
         let response = await fetch(`${BASE_URL}/products/all`);
         response = await response.json();
         if (response.status) {
@@ -63,7 +62,7 @@ function Sell({ notification, setCurrentPage }) {
           setShowAlert(false);
         }, 2000);
       } catch (error) {
-        console.log("error in fetch: ", error);
+        console.log("error in fetch", error);
         // setApiData([]);
         clearTimeout(timeOutID);
         setShowActionButton(true);

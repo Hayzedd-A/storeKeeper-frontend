@@ -20,6 +20,9 @@ nav .links {
 nav .links .hambuger {
   display: none;
 }
+nav .links .ant-menu-horizontal {
+  border: none;
+}
 
 .ant-spin {
   scale: 3;
@@ -55,6 +58,11 @@ nav .links .hambuger {
 }
 .sell-page .main .ant-select {
   width: 100%;
+}
+.sell-page .main .sell .ant-table-container {
+  overflow: auto;
+  scrollbar-width: thin;
+  height: 95vh;
 }
 .sell-page .main .sell .ant-table-title {
   padding: 0.5em;

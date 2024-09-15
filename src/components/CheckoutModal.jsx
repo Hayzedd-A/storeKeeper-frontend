@@ -13,7 +13,6 @@ const CheckoutModal = ({ reloader, open, setOpen, data }) => {
   //   };
   const handleCompletePurchase = async () => {
     try {
-      console.log(data);
       let purchaseData = { items: [], totalAmount: 0 };
       purchaseData.items = data.map(ele => {
         let output = {};
@@ -28,7 +27,6 @@ const CheckoutModal = ({ reloader, open, setOpen, data }) => {
         (acc, { amount }) => acc + amount,
         0
       );
-      console.log(purchaseData);
       setLoading(true);
       // Make API call to complete purchase
       let apiResult = await fetch(`${BASE_URL}/products/purchase`, {
@@ -39,7 +37,6 @@ const CheckoutModal = ({ reloader, open, setOpen, data }) => {
         body: JSON.stringify(purchaseData),
       });
       if (!apiResult.ok) {
-        console.log(apiResult);
       }
       apiResult = await apiResult.json();
       if (!apiResult.status) {
@@ -48,7 +45,6 @@ const CheckoutModal = ({ reloader, open, setOpen, data }) => {
         else throw new Error("Failed to complete purchase");
       }
       if (apiResult.status) {
-        console.log("Purchase Successful");
         // Add success message to notification
         Notification("success", {
           title: "Success",

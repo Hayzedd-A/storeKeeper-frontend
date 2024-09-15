@@ -97,7 +97,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
       key: "id",
     },
     {
-      title: "price",
+      title: "Price",
       dataIndex: "price",
       key: "id",
       sorter: {
@@ -106,7 +106,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
       },
     },
     {
-      title: "quantity",
+      title: "Quantity",
       dataIndex: "quantity",
       key: "id",
       sorter: {
@@ -183,7 +183,7 @@ const SellingTable = ({ setCartData, data, setData }) => {
       },
     },
     {
-      title: "action",
+      title: "Action",
       key: "id",
       render: item => {
         const tooltipTitle = () => {
