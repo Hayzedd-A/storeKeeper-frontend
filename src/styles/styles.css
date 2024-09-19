@@ -24,6 +24,25 @@ nav .links .ant-menu-horizontal {
   border: none;
 }
 
+#network-alert.header .rfm-marquee {
+  display: unset;
+}
+#network-alert.header .rfm-marquee:first-of-type {
+  display: none;
+}
+#network-alert.header a {
+  margin-left: 1em;
+}
+#network-alert.header .ant-alert-content {
+  min-width: unset;
+}
+#network-alert.header .ant-alert-action {
+  flex: 2;
+}
+#network-alert.header .ant-spin {
+  scale: 1;
+}
+
 .ant-spin {
   scale: 3;
   z-index: 6;

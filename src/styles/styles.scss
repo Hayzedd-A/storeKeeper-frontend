@@ -69,6 +69,26 @@ nav {
   //     }
   //   }
 }
+#network-alert.header {
+  .rfm-marquee {
+    display: unset;
+    &:first-of-type {
+      display: none;
+    }
+  }
+  a {
+    margin-left: 1em;
+  }
+  .ant-alert-content {
+    min-width: unset;
+  }
+  .ant-alert-action {
+    flex: 2;
+  }
+  .ant-spin {
+    scale: 1;
+  }
+}
 
 .ant-spin {
   scale: 3;
